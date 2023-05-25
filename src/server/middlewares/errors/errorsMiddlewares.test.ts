@@ -9,7 +9,7 @@ beforeEach(() => {
 });
 describe("Given a generalError middleware", () => {
   describe("When its called with an unknow error", () => {
-    test("Then it should the response's status method with 500 and status Json with 'Internal Server Error'", () => {
+    test("Then it should call the response's status method with 500 and status Json with 'Internal Server Error'", () => {
       const error = new Error("Internal Server Error");
       const statusCode = 500;
       const { message } = error;
@@ -43,7 +43,7 @@ describe("Given a errorNotFound middleware", () => {
 
       const expectedError = new CustomError("Endpoint not Found", 404);
 
-      errorNotFound(req as Request, res as Response, next);
+      errorNotFound(req as Request, res as Response, next as NextFunction);
 
       expect(next).toHaveBeenCalledWith(expectedError);
     });
