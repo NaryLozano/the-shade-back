@@ -1,6 +1,6 @@
 import { type Request, type Response, type NextFunction } from "express";
-import type CustomError from "../../CustomError/CustomError.js";
-import { generalError } from "./errorsMiddlewares.js";
+import CustomError from "../../CustomError/CustomError.js";
+import { errorNotFound, generalError } from "./errorsMiddlewares.js";
 
 type CustomResponse = Pick<Response, "status" | "json">;
 
@@ -30,6 +30,22 @@ describe("Given a generalError middleware", () => {
 
       expect(response.status).toHaveBeenCalledWith(statusCode);
       expect(response.json).toHaveBeenCalledWith({ message });
+    });
+  });
+});
+
+describe("Given a errorNotFound middleware", () => {
+  describe("When it receives a next function", () => {
+    test("Then it should call the received next fucntion with a statuscode 404 and a message 'Endpoint not found'", () => {
+      const req = {};
+      const res = {};
+      const next = jest.fn();
+
+      const expectedError = new CustomError("Endpoint not Found", 404);
+
+      errorNotFound(req as Request, res as Response, next);
+
+      expect(next).toHaveBeenCalledWith(expectedError);
     });
   });
 });
