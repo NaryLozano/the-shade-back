@@ -4,9 +4,9 @@ import type CustomError from "../../CustomError/CustomError";
 
 const debug = createDebug("the-shade-of-it-all-api:server:middlewares:errors");
 
-const generalError = (
+export const generalError = (
   error: CustomError,
-  _req: Request,
+  req: Request,
   res: Response,
   _next: NextFunction
 ) => {
@@ -17,5 +17,3 @@ const generalError = (
 
   res.status(errorStatusCode).json({ message: errorMessage });
 };
-
-export default generalError;
