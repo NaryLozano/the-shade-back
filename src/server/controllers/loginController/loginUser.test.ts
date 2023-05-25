@@ -5,10 +5,10 @@ import { Types } from "mongoose";
 import {
   type UserStructure,
   type UserCredentialsRequest,
-} from "../../types/types";
+} from "../../../types/types";
 import { loginUser } from "./loginController.js";
-import User from "../../database/users/users.js";
-import CustomError from "../../server/CustomError/CustomError";
+import User from "../../../database/users/users.js";
+import CustomError from "../../CustomError/CustomError";
 
 describe("Given a loginUser middleware", () => {
   const validUser = {
