@@ -2,12 +2,15 @@ import "../loadEnvironments.js";
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
+import { validate } from "express-validation";
 import {
   errorNotFound,
   generalError,
 } from "./middlewares/errors/errorsMiddlewares.js";
 import pingController from "./controllers/ping/pingController.js";
 import paths from "./paths/paths.js";
+import { loginUser } from "./controllers/loginController/loginController.js";
+import { userLoginSchema } from "../schemas/userLoginSchema.js";
 
 export const app = express();
 
@@ -22,6 +25,11 @@ app.use(cors({ origin: devOrigin }));
 app.use(morgan("dev"));
 
 app.get(paths.root, pingController);
+app.post(
+  paths.login,
+  validate(userLoginSchema, {}, { abortEarly: false }),
+  loginUser
+);
 
 app.use(errorNotFound);
 app.use(generalError);
