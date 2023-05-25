@@ -11,7 +11,11 @@
       "rules": {
         "no-unused-vars": "error",
         "no-console": "error",
-        "@typescript-eslint/consistent-type-definitions": ["error", "interface"]
+        "@typescript-eslint/consistent-type-definitions": [
+          "error",
+          "interface"
+        ],
+        "@typescript-eslint/naming-convention": "off"
       }
     }
   ],
