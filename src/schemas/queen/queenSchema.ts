@@ -1,4 +1,5 @@
 import { Schema, Types, model } from "mongoose";
+import User from "../../database/users/users";
 
 export const queenSchema = new Schema({
   name: {
@@ -24,7 +25,7 @@ export const queenSchema = new Schema({
   },
   user: {
     type: Types.ObjectId,
-    ref: "User",
+    ref: User,
   },
 });
 
