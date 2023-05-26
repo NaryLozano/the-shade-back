@@ -29,7 +29,9 @@ export const loginUser = async (
       user: user.username,
     };
 
-    const token = jwt.sign(tokenPayload, process.env.JWT_SECRET!);
+    const token = jwt.sign(tokenPayload, process.env.JWT_SECRET!, {
+      expiresIn: "24h",
+    });
 
     res.status(statuscode.OK).json({ token });
   } catch (error) {
