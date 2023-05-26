@@ -4,6 +4,8 @@ import jwt from "jsonwebtoken";
 import { type UserCredentialsRequest } from "../../../types/types";
 import User from "../../../database/users/users.js";
 import CustomError from "../../CustomError/CustomError.js";
+import statuscode from "../../response/statuscodes.js";
+import messages from "../../response/messages.js";
 
 export const loginUser = async (
   req: UserCredentialsRequest,
@@ -15,7 +17,10 @@ export const loginUser = async (
   try {
     const user = await User.findOne({ username }).exec();
     if (!user || !(await bcrypt.compare(password, user.password))) {
-      const invalidCredentials = new CustomError("Invalid credentials", 401);
+      const invalidCredentials = new CustomError(
+        messages.invalidCredentialsMessage,
+        statuscode.unauthorized
+      );
       throw invalidCredentials;
     }
 
@@ -26,7 +31,7 @@ export const loginUser = async (
 
     const token = jwt.sign(tokenPayload, process.env.JWT_SECRET!);
 
-    res.status(200).json({ token });
+    res.status(statuscode.OK).json({ token });
   } catch (error) {
     next(error);
   }
