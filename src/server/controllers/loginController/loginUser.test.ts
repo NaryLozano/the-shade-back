@@ -11,7 +11,7 @@ import User from "../../../database/users/users.js";
 import CustomError from "../../CustomError/CustomError.js";
 import statuscode from "../../response/statuscodes.js";
 import messages from "../../response/messages.js";
-import { invalidUser, validUser } from "../../../mocks/mocks.js";
+import { invalidUser, mockToken, validUser } from "../../../mocks/mocks.js";
 
 describe("Given a loginUser middleware", () => {
   const req: Pick<UserCredentialsRequest, "body"> = {
@@ -26,12 +26,10 @@ describe("Given a loginUser middleware", () => {
     username: "rupertHolmes",
   };
 
-  const token = "aTokenToRuleThemAll";
-
   User.findOne = jest
     .fn()
     .mockReturnValue({ exec: jest.fn().mockResolvedValue(user) });
-  jwt.sign = jest.fn().mockReturnValue(token);
+  jwt.sign = jest.fn().mockReturnValue(mockToken);
 
   const expectedStatusCode = statuscode.OK;
 
@@ -57,7 +55,7 @@ describe("Given a loginUser middleware", () => {
         res as Response,
         next as NextFunction
       );
-      expect(res.json).toHaveBeenCalledWith({ token });
+      expect(res.json).toHaveBeenCalledWith({ token: mockToken });
     });
   });
   describe("When it receives invalid user credentials and a next function", () => {
