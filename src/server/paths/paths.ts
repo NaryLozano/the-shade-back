@@ -1,6 +1,7 @@
 const paths = {
   root: "/",
-  login: "user/login",
+  user: "/user",
+  login: "/login",
 };
 
 export default paths;
