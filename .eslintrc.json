@@ -15,6 +15,12 @@
           "error",
           "interface"
         ],
+        "new-cap": [
+          "error",
+          {
+            "capIsNewExceptions": ["Router"]
+          }
+        ],
         "@typescript-eslint/naming-convention": "off"
       }
     }
