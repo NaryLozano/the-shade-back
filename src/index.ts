@@ -8,6 +8,11 @@ const debug = createDebug("the-shade-of-it-all-api:root");
 const port = process.env.PORT ?? 4000;
 const mongoDbConnection = process.env.MONGODB_CONNECTION!;
 
+if (!mongoDbConnection) {
+  debug("Missing environment variables");
+  process.exit(1);
+}
+
 await connectToDataBase(mongoDbConnection);
 
 app.listen(port, () => {
