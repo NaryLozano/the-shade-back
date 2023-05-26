@@ -1,3 +1,4 @@
+import "../loadEnvironments.js";
 import request from "supertest";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
