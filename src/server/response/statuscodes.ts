@@ -5,6 +5,7 @@ const statuscode = {
   unauthorized: 401,
   badRequest: 400,
   conflict: 409,
+  tokenInvalid: 498,
 };
 
 export default statuscode;
