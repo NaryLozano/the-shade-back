@@ -11,13 +11,9 @@ import User from "../../../database/users/users.js";
 import CustomError from "../../CustomError/CustomError.js";
 import statuscode from "../../response/statuscodes.js";
 import messages from "../../response/messages.js";
+import { invalidUser, validUser } from "../../../mocks/mocks.js";
 
 describe("Given a loginUser middleware", () => {
-  const validUser = {
-    password: "pinacolada",
-    username: "rupertholmes",
-  };
-
   const req: Pick<UserCredentialsRequest, "body"> = {
     body: validUser,
   };
@@ -70,11 +66,6 @@ describe("Given a loginUser middleware", () => {
         messages.invalidCredentialsMessage,
         statuscode.unauthorized
       );
-
-      const invalidUser = {
-        password: "sashayaway",
-        username: "rupert",
-      };
 
       const requestInvalid: Pick<UserCredentialsRequest, "body"> = {
         body: invalidUser,
