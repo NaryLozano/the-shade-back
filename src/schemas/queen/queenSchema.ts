@@ -1,4 +1,5 @@
 import { Schema, Types, model } from "mongoose";
+import User from "../../database/users/users";
 
 export const queenSchema = new Schema({
   name: {
@@ -13,6 +14,7 @@ export const queenSchema = new Schema({
     type: String,
     required: true,
   },
+  season: { type: Number, required: true },
   hometown: {
     type: String,
     required: true,
@@ -23,7 +25,7 @@ export const queenSchema = new Schema({
   },
   user: {
     type: Types.ObjectId,
-    ref: "User",
+    ref: User,
   },
 });
 

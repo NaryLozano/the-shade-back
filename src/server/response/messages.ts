@@ -3,6 +3,7 @@ const messages = {
   internalServerErrorMessage: "Internal Server Error",
   notFoundMessage: "Endpoint not Found",
   invalidCredentialsMessage: "Invalid credentials",
+  conflictMessage: "Conflict",
 };
 
 export default messages;

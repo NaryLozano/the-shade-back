@@ -4,6 +4,7 @@ const statuscode = {
   notFound: 404,
   unauthorized: 401,
   badRequest: 400,
+  conflict: 409,
 };
 
 export default statuscode;
