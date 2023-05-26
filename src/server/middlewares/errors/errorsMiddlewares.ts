@@ -1,6 +1,8 @@
 import createDebug from "debug";
 import { type NextFunction, type Request, type Response } from "express";
 import CustomError from "../../CustomError/CustomError.js";
+import messages from "../../response/messages.js";
+import statuscode from "../../response/statuscodes.js";
 
 const debug = createDebug("the-shade-of-it-all-api:server:middlewares:errors");
 
@@ -23,7 +25,7 @@ export const errorNotFound = (
   res: Response,
   next: NextFunction
 ) => {
-  debug("Endpoint not Found");
-  const error = new CustomError("Endpoint not Found", 404);
+  debug(messages.notFoundMessage);
+  const error = new CustomError(messages.notFoundMessage, statuscode.notFound);
   next(error);
 };

@@ -8,7 +8,9 @@ import {
 } from "../../../types/types";
 import { loginUser } from "./loginController.js";
 import User from "../../../database/users/users.js";
-import CustomError from "../../CustomError/CustomError";
+import CustomError from "../../CustomError/CustomError.js";
+import statuscode from "../../response/statuscodes.js";
+import messages from "../../response/messages.js";
 
 describe("Given a loginUser middleware", () => {
   const validUser = {
@@ -35,7 +37,7 @@ describe("Given a loginUser middleware", () => {
     .mockReturnValue({ exec: jest.fn().mockResolvedValue(user) });
   jwt.sign = jest.fn().mockReturnValue(token);
 
-  const expectedStatusCode = 200;
+  const expectedStatusCode = statuscode.OK;
 
   const next = jest.fn();
 
@@ -53,7 +55,7 @@ describe("Given a loginUser middleware", () => {
       );
       expect(res.status).toHaveBeenCalledWith(expectedStatusCode);
     });
-    test("Then it shouldnt call the response's json method with token", async () => {
+    test("Then it should call the response's json method with token", async () => {
       await loginUser(
         req as UserCredentialsRequest,
         res as Response,
@@ -64,7 +66,10 @@ describe("Given a loginUser middleware", () => {
   });
   describe("When it receives invalid user credentials and a next function", () => {
     test("Then it should call the next function with the error 'Invalid credentials' and status code 401", async () => {
-      const error = new CustomError("Invalid credentials", 401);
+      const error = new CustomError(
+        messages.invalidCredentialsMessage,
+        statuscode.unauthorized
+      );
 
       const invalidUser = {
         password: "sashayaway",
