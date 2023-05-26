@@ -13,6 +13,7 @@ export const queenSchema = new Schema({
     type: String,
     required: true,
   },
+  season: { type: Number, required: true },
   hometown: {
     type: String,
     required: true,
