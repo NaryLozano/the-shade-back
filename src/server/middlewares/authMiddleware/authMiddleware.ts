@@ -1,3 +1,4 @@
+import "../../../loadEnvironments.js";
 import { type NextFunction, type Response } from "express";
 import jwt from "jsonwebtoken";
 import { type CustomRequest } from "../../../types/testUtils.js";
@@ -8,7 +9,7 @@ import statuscode from "../../response/statuscodes.js";
 const auth = (req: CustomRequest, res: Response, next: NextFunction) => {
   try {
     const authorizationHeader = req.header("Authorization");
-    if (!authorizationHeader?.includes("Bearer")) {
+    if (!authorizationHeader?.includes("Bearer ")) {
       const error = new CustomError(
         messages.tokenInvalid,
         statuscode.tokenInvalid
@@ -17,7 +18,7 @@ const auth = (req: CustomRequest, res: Response, next: NextFunction) => {
       throw error;
     }
 
-    const token = authorizationHeader.replace("Bearer", "");
+    const token = authorizationHeader.replace("Bearer ", "");
 
     const payload = jwt.verify(token, process.env.JWT_SECRET!);
 

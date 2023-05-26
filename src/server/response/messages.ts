@@ -5,6 +5,7 @@ const messages = {
   invalidCredentialsMessage: "Invalid credentials",
   conflictMessage: "Conflict",
   tokenInvalid: "Token Expired or Invalid",
+  unauthorized: "Unauthorized, Missing Authorization Token",
 };
 
 export default messages;
