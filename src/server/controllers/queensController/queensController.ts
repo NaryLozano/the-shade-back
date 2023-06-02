@@ -1,6 +1,6 @@
 import { type NextFunction, type Request, type Response } from "express";
-import Queen from "../../../schemas/queen/queenSchema";
-import statuscode from "../../response/statuscodes";
+import Queen from "../../../schemas/queen/queenSchema.js";
+import statuscode from "../../response/statuscodes.js";
 
 const getQueens = async (req: Request, res: Response, next: NextFunction) => {
   try {

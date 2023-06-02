@@ -23,12 +23,16 @@ const auth = (req: CustomRequest, res: Response, next: NextFunction) => {
     const payload = jwt.verify(token, process.env.JWT_SECRET!);
 
     const userId = payload.sub as string;
+
     req.userId = userId;
+
+    next();
   } catch (error: unknown) {
     const invalidTokenError =
       (error as Error).name === "JsonWebTokenError"
         ? new CustomError(messages.tokenInvalid, statuscode.tokenInvalid)
         : error;
+
     next(invalidTokenError);
   }
 };

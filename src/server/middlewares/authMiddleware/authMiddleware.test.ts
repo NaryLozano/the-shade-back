@@ -18,15 +18,17 @@ describe("Given an Auth middleware", () => {
   };
   const res = {};
   const next = jest.fn();
+
   describe("When it receives an authorization header with a valid token and a next function", () => {
     test("Then it should call the received next function", () => {
       jwt.verify = jest.fn();
 
       auth(req as CustomRequest, res as Response, next as NextFunction);
 
-      expect(next).toHaveBeenCalled();
+      expect(next).toHaveBeenCalledTimes(1);
     });
   });
+
   describe("When it receives an authorization header with and invalid token and a next function", () => {
     test("Then it should call the received next function with a 498 'Token Expired or Invalid' error", () => {
       const expectedError = new CustomError(
@@ -47,7 +49,7 @@ describe("Given an Auth middleware", () => {
   describe("When it receives an authorization Heades without bearer and a next function", () => {
     test("Then it should call the received next function with a 498 'Token Expired or Invalid'", () => {
       const req: Pick<Request, "header"> = {
-        header: jest.fn().mockReturnValue(`Bearer ${mockTokenReal}`),
+        header: jest.fn().mockReturnValue(`${mockTokenReal}`),
       };
       const expectedError = new CustomError(
         messages.tokenInvalid,

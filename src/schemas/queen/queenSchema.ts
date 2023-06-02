@@ -1,5 +1,5 @@
 import { Schema, Types, model } from "mongoose";
-import User from "../../database/users/users";
+import User from "../../database/users/users.js";
 
 export const queenSchema = new Schema({
   name: {
