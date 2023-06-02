@@ -11,10 +11,11 @@ import queensRouter from "./routers/queensRouter/queensRouter.js";
 import paths from "./paths/paths.js";
 import pingController from "./controllers/ping/pingController.js";
 import userRouter from "./routers/user/userRouter.js";
+import options from "../allowedOrigins.js";
 
 export const app = express();
-const devOrigin = process.env.ALLOWED_ORIGIN_DEV;
-app.use(cors({ origin: devOrigin }));
+
+app.use(cors(options));
 
 app.use(express.json());
 
