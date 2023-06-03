@@ -2,6 +2,7 @@ import "./loadEnvironments.js";
 import type cors from "cors";
 const allowedOrigins = [
   process.env.ALLOWED_ORIGIN_DEV!,
+  process.env.ALLOWED_ORIGIN_DEV2!,
   process.env.ALLOWED_ORIGIN_PROD!,
 ];
 
