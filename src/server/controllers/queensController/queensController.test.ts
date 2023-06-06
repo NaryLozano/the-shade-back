@@ -2,7 +2,7 @@ import { type NextFunction, type Request, type Response } from "express";
 import Queen from "../../../schemas/queen/queenSchema";
 import queensMock from "../../../mocks/queensMock";
 import statuscode from "../../response/statuscodes";
-import getQueens from "./queensController";
+import { getQueens } from "./queensController";
 import messages from "../../response/messages";
 
 beforeEach(() => {
