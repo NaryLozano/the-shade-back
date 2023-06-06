@@ -1,0 +1,146 @@
+{
+  "info": {
+    "_postman_id": "f05ff22e-2a1a-4e2e-90f6-e4b059aa4bd5",
+    "name": "TheShade",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "11418877"
+  },
+  "item": [
+    {
+      "name": "Ping",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "User/login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"username\": \"admin\",\n\"password\": \"admin\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/user/login",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["user", "login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "QueensList",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDdiNjY5OWQ0ODEwMTljZTk0YTAyMWQiLCJ1c2VyIjoiYWRtaW4iLCJpYXQiOjE2ODYwNTEwNjYsImV4cCI6MTY5Mjk2MzA2Nn0.NdP5IzUuUlvigafS9sIOM5cO8Rgfllk_JtTL4HatBjA",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/queens",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["queens"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Ping-render",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://nary-lozano-final-project-back-202304-bcn.onrender.com/",
+          "protocol": "https",
+          "host": [
+            "nary-lozano-final-project-back-202304-bcn",
+            "onrender",
+            "com"
+          ],
+          "path": [""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "User/login-render",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"username\": \"admin\", \"password\": \"admin\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://nary-lozano-final-project-back-202304-bcn.onrender.com/user/login",
+          "protocol": "https",
+          "host": [
+            "nary-lozano-final-project-back-202304-bcn",
+            "onrender",
+            "com"
+          ],
+          "path": ["user", "login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "QueensList-render",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDdiNjY5OWQ0ODEwMTljZTk0YTAyMWQiLCJ1c2VyIjoiYWRtaW4iLCJpYXQiOjE2ODYwNTEzMzYsImV4cCI6MTY5Mjk2MzMzNn0.57HAzzfeX8S_CNikYH-vSfOP9YFTZKXDGwUnCKuMJws",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://nary-lozano-final-project-back-202304-bcn.onrender.com/queens",
+          "protocol": "https",
+          "host": [
+            "nary-lozano-final-project-back-202304-bcn",
+            "onrender",
+            "com"
+          ],
+          "path": ["queens"]
+        }
+      },
+      "response": []
+    }
+  ]
+}

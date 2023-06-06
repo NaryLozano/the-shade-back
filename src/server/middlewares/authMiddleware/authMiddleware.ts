@@ -9,7 +9,7 @@ import statuscode from "../../response/statuscodes.js";
 const auth = (req: CustomRequest, res: Response, next: NextFunction) => {
   try {
     const authorizationHeader = req.header("Authorization");
-    if (!authorizationHeader?.includes("Bearer ")) {
+    if (!authorizationHeader?.includes("Bearer")) {
       const error = new CustomError(
         messages.tokenInvalid,
         statuscode.tokenInvalid
