@@ -1,20 +1,25 @@
 import { type NextFunction, type Request, type Response } from "express";
 import Queen from "../../../schemas/queen/queenSchema";
-import queensMock from "../../../mocks/queensMock";
+import { queensMock, queensMockToDelete } from "../../../mocks/queensMock";
 import statuscode from "../../response/statuscodes";
-import { getQueens } from "./queensController";
+import { deleteQueen, getQueens } from "./queensController";
 import messages from "../../response/messages";
+import { type CustomRequest } from "../../../types/testUtils";
 
 beforeEach(() => {
   jest.clearAllMocks();
 });
+
+const req = {};
+
+const res: Pick<Response, "status" | "json"> = {
+  status: jest.fn().mockReturnThis(),
+  json: jest.fn(),
+};
+
+const next = jest.fn();
+
 describe("Given a getQueens middleware", () => {
-  const req = {};
-  const res: Pick<Response, "status" | "json"> = {
-    status: jest.fn().mockReturnThis(),
-    json: jest.fn(),
-  };
-  const next = jest.fn();
   describe("When it receives a request", () => {
     Queen.find = jest.fn().mockReturnValue({
       limit: jest.fn().mockReturnThis(),
@@ -35,7 +40,7 @@ describe("Given a getQueens middleware", () => {
     });
   });
   describe("When it receives a request and it is rejected", () => {
-    test("Then it should call the response's status method with the status code ", async () => {
+    test("Then it should call next function with the error ", async () => {
       const error = new Error(messages.conflictMessage);
       Queen.find = jest.fn().mockReturnValue({
         limit: jest.fn().mockReturnThis(),
@@ -45,6 +50,56 @@ describe("Given a getQueens middleware", () => {
       await getQueens(req as Request, res as Response, next as NextFunction);
 
       expect(next).toHaveBeenCalledWith(error);
+    });
+  });
+});
+
+describe("Given a deleteQueen middleware", () => {
+  const reqId: Partial<CustomRequest> = {
+    params: { id: queensMockToDelete[1]._id.toString() },
+  };
+  describe("When it receives a request", () => {
+    test("Then it should call the response's method status with the statuscode 200", async () => {
+      const expectedStatus = statuscode.OK;
+      Queen.findByIdAndDelete = jest.fn().mockReturnValue({
+        exec: jest.fn().mockResolvedValue(queensMockToDelete[1]),
+      });
+
+      await deleteQueen(
+        reqId as Request,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatus);
+    });
+  });
+  describe("When it receives a request a it's rejected", () => {
+    test("Then it should call the next fucntion with the error", async () => {
+      const error = new Error(messages.conflictMessage);
+      Queen.findByIdAndDelete = jest.fn().mockReturnValue({
+        exec: jest.fn().mockRejectedValue(error),
+      });
+
+      await deleteQueen(
+        reqId as Request,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(next).toHaveBeenCalled();
+    });
+    test("Then it should call the response's status method with the statuscode 404", async () => {
+      const error = new Error(messages.conflictMessage);
+      Queen.findByIdAndDelete = jest.fn().mockReturnValue({
+        exec: jest.fn().mockRejectedValue(error),
+      });
+
+      await deleteQueen(
+        reqId as Request,
+        res as Response,
+        next as NextFunction
+      );
     });
   });
 });

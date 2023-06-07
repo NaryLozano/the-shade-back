@@ -1,7 +1,6 @@
 import { type NextFunction, type Request, type Response } from "express";
 import Queen from "../../../schemas/queen/queenSchema.js";
 import statuscode from "../../response/statuscodes.js";
-import CustomError from "../../CustomError/CustomError.js";
 import messages from "../../response/messages.js";
 
 export const getQueens = async (
@@ -26,12 +25,7 @@ export const deleteQueen = async (
   try {
     const { idQueen } = req.params;
 
-    const queen = await Queen.findByIdAndDelete(idQueen).exec();
-
-    if (!queen) {
-      const error = new CustomError(messages.idNotFound, statuscode.notFound);
-      throw error;
-    }
+    await Queen.findByIdAndDelete(idQueen).exec();
 
     res.status(statuscode.OK).json(messages.idDeleted);
   } catch (error: unknown) {
