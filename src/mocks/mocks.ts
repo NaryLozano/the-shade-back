@@ -11,7 +11,7 @@ export const invalidUser = {
 export const mockToken = "aTokenToRuleThemAll";
 
 export const mockTokenReal =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDc5ZDhjN2FiZDc1MzBiYjA1ZDFiODMiLCJ1c2VyIjoiYmFieUdhdmlvdGEiLCJpYXQiOjE2ODU3MDcwMDIsImV4cCI6MTY5MjYxOTAwMn0.U1SNoHOlaMLLUz0Ow4E26FK8E52fXNvvYUhKC572a2o";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDdiNjY5OWQ0ODEwMTljZTk0YTAyMWQiLCJ1c2VyIjoiYWRtaW4iLCJpYXQiOjE2ODYwODQyMTgsImV4cCI6MTY5Mjk5NjIxOH0.HYBDj1l7aB87mcAdvHFfXKDmRLCGvj2NCYi5dKKk3fE";
 
 export const userHashpassword = {
   password: "$2y$10$gcdUrNchvTm9MdUdHw8YRuEAcOgLgej6/ScIFs.frXfyCaccqT28S",

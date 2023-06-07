@@ -3,7 +3,7 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 import connectToDatabase from "../../../database/connectToDatabase.js";
 import Queen from "../../../schemas/queen/queenSchema.js";
-import queensMock from "../../../mocks/queensMock.js";
+import { queensMock } from "../../../mocks/queensMock.js";
 import statuscode from "../../response/statuscodes.js";
 import { app } from "../../index.js";
 import paths from "../../paths/paths.js";
