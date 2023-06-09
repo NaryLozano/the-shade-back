@@ -4,7 +4,6 @@ import statuscode from "../../response/statuscodes.js";
 import messages from "../../response/messages.js";
 import { type QueenStructureRequest } from "../../../types/types.js";
 import { Types } from "mongoose";
-import CustomError from "../../CustomError/CustomError.js";
 
 export const getQueens = async (
   req: Request,
@@ -47,11 +46,6 @@ export const addQueen = async (
       ...body,
       user: new Types.ObjectId(userId),
     });
-
-    if (!newQueen) {
-      const error = new CustomError(messages.addFailed, statuscode.badRequest);
-      throw error;
-    }
 
     res.status(statuscode.created).json({ newQueen });
   } catch (error: unknown) {
