@@ -141,6 +141,65 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "Delete-by-id",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDdiNjY5OWQ0ODEwMTljZTk0YTAyMWQiLCJ1c2VyIjoiYWRtaW4iLCJpYXQiOjE2ODYwODQyMTgsImV4cCI6MTY5Mjk5NjIxOH0.HYBDj1l7aB87mcAdvHFfXKDmRLCGvj2NCYi5dKKk3fE",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/queens/6480326a7279f651d5b3b718",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["queens", "6480326a7279f651d5b3b718"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add-queen",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDdiNjY5OWQ0ODEwMTljZTk0YTAyMWQiLCJ1c2VyIjoiYWRtaW4iLCJpYXQiOjE2ODYwODQyMTgsImV4cCI6MTY5Mjk5NjIxOH0.HYBDj1l7aB87mcAdvHFfXKDmRLCGvj2NCYi5dKKk3fE",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\":\"Nilse\",\n    \"age\":30,\n    \"rank\":\"5th\",\n    \"season\":14,\n    \"hometown\": \"vic, catalunya\",\n    \"image\": \"https://cdn.discordapp.com/attachments/1114903849455587408/1116669811976572979/download.jpeg\",\n    \"user\":\"647b6699d481019ce94a021d\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/queens/add",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["queens", "add"]
+        }
+      },
+      "response": []
     }
   ]
 }

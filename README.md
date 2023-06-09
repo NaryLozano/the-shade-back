@@ -29,3 +29,19 @@ Drag queens List
 ```
 GET /queens
 ```
+
+## Delete Queen
+
+Delete queen by id
+
+```
+DELETE /queens/:idQueen
+```
+
+## Add Queen
+
+Add queens to the List
+
+```
+Post /queens/add
+```
