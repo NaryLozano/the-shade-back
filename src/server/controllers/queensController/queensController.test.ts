@@ -2,9 +2,10 @@ import { type NextFunction, type Request, type Response } from "express";
 import Queen from "../../../schemas/queen/queenSchema";
 import { queensMock, queensMockToDelete } from "../../../mocks/queensMock";
 import statuscode from "../../response/statuscodes";
-import { deleteQueen, getQueens } from "./queensController";
+import { addQueen, deleteQueen, getQueens } from "./queensController";
 import messages from "../../response/messages";
 import { type CustomRequest } from "../../../types/testUtils";
+import { type QueenStructureRequest } from "../../../types/types";
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -100,6 +101,27 @@ describe("Given a deleteQueen middleware", () => {
         res as Response,
         next as NextFunction
       );
+    });
+  });
+});
+
+describe("Given a AddQueen controller", () => {
+  describe("when it receives a request with a new queen", () => {
+    test("Then it should call the response's status method with the statuscode 201", async () => {
+      Queen.create = jest.fn().mockReturnValue(queensMock[0]);
+      const expectedStatus = statuscode.created;
+      const req: Pick<QueenStructureRequest, "body" | "userId"> = {
+        body: queensMock[0],
+        userId: "647b6699d481019ce94a021d",
+      };
+
+      await addQueen(
+        req as QueenStructureRequest,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatus);
     });
   });
 });

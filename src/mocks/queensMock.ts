@@ -4,7 +4,7 @@ export const queensMock = [
   {
     name: "Sasha Velour",
     age: 29,
-    rank: 1,
+    rank: "1",
     season: 9,
     hometown: "Brooklyn, NY",
     image: "sasha.png",
@@ -13,7 +13,7 @@ export const queensMock = [
   {
     name: "Nina West",
     age: 39,
-    rank: 6,
+    rank: "6",
     season: 11,
     hometown: "Columbus, OH",
     image: "nina.png",
