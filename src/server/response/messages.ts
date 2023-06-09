@@ -8,6 +8,7 @@ const messages = {
   unauthorized: "Unauthorized, Missing Authorization Token",
   idNotFound: "Queen not Found!",
   idDeleted: "Queen deleted!",
+  addFailed: "Queen couldn't be created!",
 };
 
 export default messages;

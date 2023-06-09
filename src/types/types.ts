@@ -19,3 +19,18 @@ export interface UserStructure extends UserCredentials {
 export interface UserDb extends UserCredentials {
   _id: Types.ObjectId;
 }
+
+export interface QueenStructure {
+  name: string;
+  age: number;
+  rank: string;
+  season: number;
+  hometown: string;
+  image: string;
+  user: string;
+}
+
+export interface QueenStructureRequest extends Request {
+  body: QueenStructure;
+  userId: string;
+}

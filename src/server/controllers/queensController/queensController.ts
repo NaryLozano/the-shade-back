@@ -2,6 +2,8 @@ import { type NextFunction, type Request, type Response } from "express";
 import Queen from "../../../schemas/queen/queenSchema.js";
 import statuscode from "../../response/statuscodes.js";
 import messages from "../../response/messages.js";
+import { type QueenStructureRequest } from "../../../types/types.js";
+import { Types } from "mongoose";
 
 export const getQueens = async (
   req: Request,
@@ -28,6 +30,24 @@ export const deleteQueen = async (
     await Queen.findByIdAndDelete(idQueen).exec();
 
     res.status(statuscode.OK).json(messages.idDeleted);
+  } catch (error: unknown) {
+    next(error);
+  }
+};
+
+export const addQueen = async (
+  req: QueenStructureRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const { userId, body } = req;
+  try {
+    const newQueen = await Queen.create({
+      ...body,
+      user: new Types.ObjectId(userId),
+    });
+
+    res.status(statuscode.created).json({ newQueen });
   } catch (error: unknown) {
     next(error);
   }
