@@ -106,7 +106,7 @@ describe("Given a deleteQueen middleware", () => {
 });
 
 describe("Given a AddQueen controller", () => {
-  describe("when it receives a request with a new queen", () => {
+  describe("When it receives a request with a new queen", () => {
     test("Then it should call the response's status method with the statuscode 201", async () => {
       Queen.create = jest.fn().mockReturnValue(queensMock[0]);
       const expectedStatus = statuscode.created;
@@ -122,6 +122,20 @@ describe("Given a AddQueen controller", () => {
       );
 
       expect(res.status).toHaveBeenCalledWith(expectedStatus);
+    });
+  });
+  describe("When it receives a request with a new queen and its rejected", () => {
+    test("Then it should call the next function with the error", async () => {
+      const error = new Error(messages.conflictMessage);
+      Queen.create = jest.fn().mockRejectedValue(error);
+
+      await addQueen(
+        req as QueenStructureRequest,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(next).toHaveBeenCalled();
     });
   });
 });
