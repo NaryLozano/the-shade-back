@@ -8,6 +8,7 @@ import statuscode from "../../response/statuscodes.js";
 import { app } from "../../index.js";
 import paths from "../../paths/paths.js";
 import { mockTokenReal } from "../../../mocks/mocks.js";
+import { queensMockToDelete } from "../../../mocks/queensMock.js";
 
 let server: MongoMemoryServer;
 
@@ -36,6 +37,24 @@ describe("Given a GET method  with the path '/queens'", () => {
         .expect(expectedStatuscode);
 
       expect(response.body.queens).toHaveLength(2);
+    });
+  });
+});
+
+describe("Given a DELETE method with the path '/queens/id'", () => {
+  beforeAll(async () => {
+    await Queen.create(queensMockToDelete);
+  });
+  describe("When it receives a request with an authorization header and a new queen", () => {
+    test("Then it should add the new queen to the list and call the response's status method with the statuscode 201", async () => {
+      const expectedStatus = statuscode.OK;
+      const idQueen = queensMockToDelete[0]._id;
+      const response = await request(app)
+        .delete(`${paths.queens}/${idQueen}`)
+        .set("Authorization", `Bearer ${token}`)
+        .expect(expectedStatus);
+
+      expect(response.statusCode).toStrictEqual(expectedStatus);
     });
   });
 });

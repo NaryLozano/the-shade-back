@@ -30,7 +30,7 @@ export const queensMockToDelete = [
     hometown: "Brooklyn, NY",
     image: "sasha.png",
     user: "646fa7714d45f035f1b50db1",
-    _id: new Types.ObjectId(),
+    _id: new Types.ObjectId().toString(),
   },
   {
     name: "Nina West",
@@ -40,6 +40,6 @@ export const queensMockToDelete = [
     hometown: "Columbus, OH",
     image: "nina.png",
     user: "646fa7714d45f035f1b50db1",
-    _id: new Types.ObjectId(),
+    _id: new Types.ObjectId().toString(),
   },
 ];
