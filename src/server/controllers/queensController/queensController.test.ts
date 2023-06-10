@@ -11,7 +11,12 @@ beforeEach(() => {
   jest.clearAllMocks();
 });
 
-const req = {};
+const req = {
+  query: {
+    limit: 0,
+    skip: 0,
+  },
+};
 
 const res: Pick<Response, "status" | "json"> = {
   status: jest.fn().mockReturnThis(),
@@ -23,19 +28,30 @@ const next = jest.fn();
 describe("Given a getQueens middleware", () => {
   describe("When it receives a request", () => {
     Queen.find = jest.fn().mockReturnValue({
-      limit: jest.fn().mockReturnThis(),
-      exec: jest.fn().mockResolvedValue(queensMock),
+      skip: jest.fn().mockReturnValue({
+        limit: jest
+          .fn()
+          .mockReturnValue({ exec: jest.fn().mockResolvedValue(queensMock) }),
+      }),
     });
     test("Then it should call the response's status method with the status code 200", async () => {
       const expectedStatus = statuscode.OK;
 
-      await getQueens(req as Request, res as Response, next as NextFunction);
+      await getQueens(
+        req as unknown as CustomRequest,
+        res as Response,
+        next as NextFunction
+      );
 
       expect(res.status).toHaveBeenCalledWith(expectedStatus);
     });
     test("then it should call the response's method json with the List of queens", async () => {
       const expectedJson = { queens: queensMock };
-      await getQueens(req as Request, res as Response, next as NextFunction);
+      await getQueens(
+        req as unknown as CustomRequest,
+        res as Response,
+        next as NextFunction
+      );
 
       expect(res.json).toHaveBeenCalledWith(expectedJson);
     });
@@ -44,11 +60,16 @@ describe("Given a getQueens middleware", () => {
     test("Then it should call next function with the error ", async () => {
       const error = new Error(messages.conflictMessage);
       Queen.find = jest.fn().mockReturnValue({
+        skip: jest.fn().mockReturnThis(),
         limit: jest.fn().mockReturnThis(),
         exec: jest.fn().mockRejectedValue(error),
       });
 
-      await getQueens(req as Request, res as Response, next as NextFunction);
+      await getQueens(
+        req as unknown as Request,
+        res as Response,
+        next as NextFunction
+      );
 
       expect(next).toHaveBeenCalledWith(error);
     });
@@ -130,7 +151,7 @@ describe("Given a AddQueen controller", () => {
       Queen.create = jest.fn().mockRejectedValue(error);
 
       await addQueen(
-        req as QueenStructureRequest,
+        req as unknown as QueenStructureRequest,
         res as Response,
         next as NextFunction
       );
