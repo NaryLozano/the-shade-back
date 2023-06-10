@@ -12,7 +12,8 @@ export const getQueens = async (
 ) => {
   try {
     const limit = Number(req.query.limit);
-    const queens = await Queen.find().limit(limit).exec();
+    const skip = Number(req.query.skip);
+    const queens = await Queen.find().skip(skip).limit(limit).exec();
 
     res.status(statuscode.OK).json({ queens });
   } catch (error) {
