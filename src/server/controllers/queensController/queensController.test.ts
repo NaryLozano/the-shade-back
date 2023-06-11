@@ -5,7 +5,10 @@ import statuscode from "../../response/statuscodes";
 import { addQueen, deleteQueen, getQueens } from "./queensController";
 import messages from "../../response/messages";
 import { type CustomRequest } from "../../../types/testUtils";
-import { type QueenStructureRequest } from "../../../types/types";
+import {
+  type CustomRequestParams,
+  type QueenStructureRequest,
+} from "../../../types/types";
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -15,6 +18,8 @@ const req = {
   query: {
     limit: 0,
     skip: 0,
+    filter: "0",
+    filterValue: "0",
   },
 };
 
@@ -34,11 +39,15 @@ describe("Given a getQueens middleware", () => {
           .mockReturnValue({ exec: jest.fn().mockResolvedValue(queensMock) }),
       }),
     });
+
+    Queen.where = jest.fn().mockReturnValue({
+      countDocuments: jest.fn().mockReturnValue(queensMock.length),
+    });
     test("Then it should call the response's status method with the status code 200", async () => {
       const expectedStatus = statuscode.OK;
 
       await getQueens(
-        req as unknown as CustomRequest,
+        req as unknown as CustomRequestParams,
         res as Response,
         next as NextFunction
       );
@@ -46,9 +55,9 @@ describe("Given a getQueens middleware", () => {
       expect(res.status).toHaveBeenCalledWith(expectedStatus);
     });
     test("then it should call the response's method json with the List of queens", async () => {
-      const expectedJson = { queens: queensMock };
+      const expectedJson = { queens: queensMock, total: queensMock.length };
       await getQueens(
-        req as unknown as CustomRequest,
+        req as unknown as CustomRequestParams,
         res as Response,
         next as NextFunction
       );
@@ -66,7 +75,7 @@ describe("Given a getQueens middleware", () => {
       });
 
       await getQueens(
-        req as unknown as Request,
+        req as unknown as CustomRequestParams,
         res as Response,
         next as NextFunction
       );

@@ -47,5 +47,5 @@ export interface CustomRequest<
 }
 
 export interface CustomRequestParams extends Request {
-  query: { filter: string; filterValue: string; limit: string; skip: string };
+  query: { filter?: string; filterValue?: string; limit: string; skip: string };
 }
