@@ -1,3 +1,4 @@
+import type * as core from "express-serve-static-core";
 import { type Request } from "express";
 import { type Types } from "mongoose";
 
@@ -33,4 +34,18 @@ export interface QueenStructure {
 export interface QueenStructureRequest extends Request {
   body: QueenStructure;
   userId: string;
+}
+
+export interface CustomRequest<
+  P = core.ParamsDictionary,
+  ResBody = any,
+  ReqBody = any,
+  ReqQuery = core.Query,
+  Locals extends Record<string, any> = Record<string, any>
+> extends Request<P, ResBody, ReqBody, ReqQuery, Locals> {
+  userId: string;
+}
+
+export interface CustomRequestParams extends Request {
+  query: { filter: string; filterValue: string; limit: string; skip: string };
 }

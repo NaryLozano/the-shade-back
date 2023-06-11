@@ -2,21 +2,39 @@ import { type NextFunction, type Request, type Response } from "express";
 import Queen from "../../../schemas/queen/queenSchema.js";
 import statuscode from "../../response/statuscodes.js";
 import messages from "../../response/messages.js";
-import { type QueenStructureRequest } from "../../../types/types.js";
+import {
+  type CustomRequestParams,
+  type QueenStructureRequest,
+} from "../../../types/types.js";
 import { Types } from "mongoose";
 
 export const getQueens = async (
-  req: Request,
+  req: CustomRequestParams,
   res: Response,
   next: NextFunction
 ) => {
   try {
     const limit = Number(req.query.limit);
     const skip = Number(req.query.skip);
-    const queens = await Queen.find().skip(skip).limit(limit).exec();
-    const total = await Queen.where({}).countDocuments();
+    const { filter } = req.query;
+    const { filterValue } = req.query;
 
-    res.status(statuscode.OK).json({ queens, total });
+    if (filter) {
+      const queens = await Queen.find({ [filter]: filterValue })
+        .skip(skip)
+        .limit(limit)
+        .exec();
+      const total = await Queen.where({
+        [filter]: filterValue,
+      }).countDocuments();
+
+      res.status(statuscode.OK).json({ queens, total });
+    } else {
+      const queens = await Queen.find().skip(skip).limit(limit).exec();
+      const total = await Queen.where({}).countDocuments();
+
+      res.status(statuscode.OK).json({ queens, total });
+    }
   } catch (error) {
     next(error);
   }
