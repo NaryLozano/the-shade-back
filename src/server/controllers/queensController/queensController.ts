@@ -14,8 +14,9 @@ export const getQueens = async (
     const limit = Number(req.query.limit);
     const skip = Number(req.query.skip);
     const queens = await Queen.find().skip(skip).limit(limit).exec();
+    const total = await Queen.where({}).countDocuments();
 
-    res.status(statuscode.OK).json({ queens });
+    res.status(statuscode.OK).json({ queens, total });
   } catch (error) {
     next(error);
   }
