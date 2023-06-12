@@ -41,7 +41,9 @@ describe("Given a getQueens middleware", () => {
     });
 
     Queen.where = jest.fn().mockReturnValue({
-      countDocuments: jest.fn().mockReturnValue(queensMock.length),
+      countDocuments: jest.fn().mockReturnValue({
+        exec: jest.fn().mockReturnValue(queensMock.length),
+      }),
     });
     test("Then it should call the response's status method with the status code 200", async () => {
       const expectedStatus = statuscode.OK;

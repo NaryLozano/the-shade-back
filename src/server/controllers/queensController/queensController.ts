@@ -26,7 +26,9 @@ export const getQueens = async (
         .exec();
       const total = await Queen.where({
         [filter]: filterValue,
-      }).countDocuments();
+      })
+        .countDocuments()
+        .exec();
 
       res.status(statuscode.OK).json({ queens, total });
     } else {
