@@ -1,5 +1,5 @@
-const statuscode = {
-  OK: 200,
+const statusCode = {
+  ok: 200,
   created: 201,
   internalServerError: 500,
   notFound: 404,
@@ -9,4 +9,4 @@ const statuscode = {
   tokenInvalid: 498,
 };
 
-export default statuscode;
+export default statusCode;

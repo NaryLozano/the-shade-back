@@ -1,6 +1,6 @@
 import { type Request, type Response } from "express";
 import pingController from "./pingController.js";
-import statuscode from "../../response/statuscodes.js";
+import statusCode from "../../response/statuscodes.js";
 import messages from "../../response/messages.js";
 
 describe("Given a pingController controller", () => {
@@ -11,7 +11,7 @@ describe("Given a pingController controller", () => {
       json: jest.fn(),
     };
     test("Then it should call the response's status method with the statuscode 200", () => {
-      const expectedstatusCode = statuscode.OK;
+      const expectedstatusCode = statusCode.ok;
 
       pingController(req as Request, res as Response);
 

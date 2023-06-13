@@ -7,7 +7,7 @@ import connectToDataBase from "../../../database/connectToDatabase.js";
 import User from "../../../database/users/users.js";
 import { type UserDb } from "../../../types/types.js";
 import { userCredentials, userHashpassword } from "../../../mocks/mocks.js";
-import statuscode from "../../response/statuscodes.js";
+import statusCode from "../../response/statuscodes.js";
 import { app } from "../..";
 import paths from "../../paths/paths.js";
 
@@ -35,7 +35,7 @@ describe("Given a Post method with the path 'user/login'", () => {
       newUser = await User.create(userHashpassword);
     });
     test("Then it should call the response's status method with the status code 200 and a json method with a token", async () => {
-      const expectedStatuscode = statuscode.OK;
+      const expectedStatuscode = statusCode.ok;
       const response: { body: { token: string } } = await request(app)
         .post(`${paths.user}${paths.login}`)
         .send(userCredentials)

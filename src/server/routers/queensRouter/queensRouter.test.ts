@@ -95,7 +95,7 @@ describe("Given a GET method with the path '/queens/id'", () => {
       const expectedStatus = statusCode.ok;
       const idQueen = queensMockWithID[0]._id;
       const response = await request(app)
-        .delete(`${paths.queens}/${idQueen}`)
+        .get(`${paths.queens}/${idQueen}`)
         .set("Authorization", `Bearer ${token}`)
         .expect(expectedStatus);
 
