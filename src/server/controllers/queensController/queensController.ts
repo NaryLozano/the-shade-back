@@ -83,9 +83,9 @@ export const getOneQueen = async (
 ) => {
   try {
     const { idQueen } = req.params;
-    const foundQueen = await Queen.findById(idQueen).exec();
+    const queenById = await Queen.findById(idQueen).exec();
 
-    res.status(statusCode.ok).json({ foundQueen });
+    res.status(statusCode.ok).json({ queenById });
   } catch (error: unknown) {
     next(error);
   }
