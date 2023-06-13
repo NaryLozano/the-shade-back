@@ -1,8 +1,13 @@
 import { type NextFunction, type Request, type Response } from "express";
 import Queen from "../../../schemas/queen/queenSchema";
-import { queensMock, queensMockToDelete } from "../../../mocks/queensMock";
-import statuscode from "../../response/statuscodes";
-import { addQueen, deleteQueen, getQueens } from "./queensController";
+import { queensMock, queensMockWithID } from "../../../mocks/queensMock";
+import statusCode from "../../response/statuscodes";
+import {
+  addQueen,
+  deleteQueen,
+  getOneQueen,
+  getQueens,
+} from "./queensController";
 import messages from "../../response/messages";
 import { type CustomRequest } from "../../../types/testUtils";
 import {
@@ -46,7 +51,7 @@ describe("Given a getQueens middleware", () => {
       }),
     });
     test("Then it should call the response's status method with the status code 200", async () => {
-      const expectedStatus = statuscode.OK;
+      const expectedStatus = statusCode.ok;
 
       await getQueens(
         req as unknown as CustomRequestParams,
@@ -89,13 +94,13 @@ describe("Given a getQueens middleware", () => {
 
 describe("Given a deleteQueen middleware", () => {
   const reqId: Partial<CustomRequest> = {
-    params: { id: queensMockToDelete[1]._id.toString() },
+    params: { id: queensMockWithID[1]._id.toString() },
   };
   describe("When it receives a request", () => {
     test("Then it should call the response's method status with the statuscode 200", async () => {
-      const expectedStatus = statuscode.OK;
+      const expectedStatus = statusCode.ok;
       Queen.findByIdAndDelete = jest.fn().mockReturnValue({
-        exec: jest.fn().mockResolvedValue(queensMockToDelete[1]),
+        exec: jest.fn().mockResolvedValue(queensMockWithID[1]),
       });
 
       await deleteQueen(
@@ -141,7 +146,7 @@ describe("Given a AddQueen controller", () => {
   describe("When it receives a request with a new queen", () => {
     test("Then it should call the response's status method with the statuscode 201", async () => {
       Queen.create = jest.fn().mockReturnValue(queensMock[0]);
-      const expectedStatus = statuscode.created;
+      const expectedStatus = statusCode.created;
       const req: Pick<QueenStructureRequest, "body" | "userId"> = {
         body: queensMock[0],
         userId: "647b6699d481019ce94a021d",
@@ -163,6 +168,49 @@ describe("Given a AddQueen controller", () => {
 
       await addQueen(
         req as unknown as QueenStructureRequest,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(next).toHaveBeenCalled();
+    });
+  });
+});
+
+describe("Given a getOneQueen middleware", () => {
+  describe("When it receives a request with a queen id", () => {
+    test("The it should call the response's status method with the statuscode 200", async () => {
+      const reqId: Partial<CustomRequest> = {
+        params: { id: queensMockWithID[1]._id.toString() },
+      };
+
+      const expectedStatus = statusCode.ok;
+      Queen.findById = jest.fn().mockReturnValue({
+        exec: jest.fn().mockResolvedValue(queensMockWithID[1]),
+      });
+
+      await getOneQueen(
+        reqId as Request,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatus);
+    });
+  });
+
+  describe("When it receives a request with a queen id and it rejects", () => {
+    test("Then it should call the next function with the error", async () => {
+      const reqId: Partial<CustomRequest> = {
+        params: { id: queensMockWithID[1]._id.toString() },
+      };
+      const error = new Error(messages.conflictMessage);
+      Queen.findById = jest.fn().mockReturnValue({
+        exec: jest.fn().mockRejectedValue(error),
+      });
+
+      await getOneQueen(
+        reqId as Request,
         res as Response,
         next as NextFunction
       );
