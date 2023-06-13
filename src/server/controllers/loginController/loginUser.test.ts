@@ -9,7 +9,7 @@ import {
 import { loginUser } from "./loginController.js";
 import User from "../../../database/users/users.js";
 import CustomError from "../../CustomError/CustomError.js";
-import statuscode from "../../response/statuscodes.js";
+import statusCode from "../../response/statuscodes.js";
 import messages from "../../response/messages.js";
 import { invalidUser, mockToken, validUser } from "../../../mocks/mocks.js";
 
@@ -31,7 +31,7 @@ describe("Given a loginUser middleware", () => {
     .mockReturnValue({ exec: jest.fn().mockResolvedValue(user) });
   jwt.sign = jest.fn().mockReturnValue(mockToken);
 
-  const expectedStatusCode = statuscode.OK;
+  const expectedStatusCode = statusCode.ok;
 
   const next = jest.fn();
 
@@ -62,7 +62,7 @@ describe("Given a loginUser middleware", () => {
     test("Then it should call the next function with the error 'Invalid credentials' and status code 401", async () => {
       const error = new CustomError(
         messages.invalidCredentialsMessage,
-        statuscode.unauthorized
+        statusCode.unauthorized
       );
 
       const requestInvalid: Pick<UserCredentialsRequest, "body"> = {

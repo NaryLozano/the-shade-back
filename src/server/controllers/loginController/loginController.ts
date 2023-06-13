@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { type UserCredentialsRequest } from "../../../types/types";
 import User from "../../../database/users/users.js";
 import CustomError from "../../CustomError/CustomError.js";
-import statuscode from "../../response/statuscodes.js";
+import statusCode from "../../response/statuscodes.js";
 import messages from "../../response/messages.js";
 
 export const loginUser = async (
@@ -19,7 +19,7 @@ export const loginUser = async (
     if (!user || !(await bcrypt.compare(password, user.password))) {
       const invalidCredentials = new CustomError(
         messages.invalidCredentialsMessage,
-        statuscode.unauthorized
+        statusCode.unauthorized
       );
       throw invalidCredentials;
     }
@@ -33,7 +33,7 @@ export const loginUser = async (
       expiresIn: "80d",
     });
 
-    res.status(statuscode.OK).json({ token });
+    res.status(statusCode.ok).json({ token });
   } catch (error) {
     next(error);
   }

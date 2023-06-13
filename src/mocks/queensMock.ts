@@ -21,7 +21,7 @@ export const queensMock = [
   },
 ];
 
-export const queensMockToDelete = [
+export const queensMockWithID = [
   {
     name: "Sasha Velour",
     age: 29,

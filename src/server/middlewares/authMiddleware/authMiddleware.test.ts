@@ -5,7 +5,7 @@ import auth from "./authMiddleware.js";
 import { type CustomRequest } from "../../../types/testUtils.js";
 import CustomError from "../../CustomError/CustomError.js";
 import messages from "../../response/messages.js";
-import statuscode from "../../response/statuscodes.js";
+import statusCode from "../../response/statuscodes.js";
 
 beforeAll(() => {
   jest.clearAllMocks();
@@ -33,7 +33,7 @@ describe("Given an Auth middleware", () => {
     test("Then it should call the received next function with a 498 'Token Expired or Invalid' error", () => {
       const expectedError = new CustomError(
         messages.tokenInvalid,
-        statuscode.tokenInvalid
+        statusCode.tokenInvalid
       );
       expectedError.name = "JsonWebTokenError";
 
@@ -53,7 +53,7 @@ describe("Given an Auth middleware", () => {
       };
       const expectedError = new CustomError(
         messages.tokenInvalid,
-        statuscode.tokenInvalid
+        statusCode.tokenInvalid
       );
 
       auth(req as CustomRequest, res as Response, next as NextFunction);

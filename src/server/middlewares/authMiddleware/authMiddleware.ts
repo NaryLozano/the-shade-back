@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { type CustomRequest } from "../../../types/testUtils.js";
 import CustomError from "../../CustomError/CustomError.js";
 import messages from "../../response/messages.js";
-import statuscode from "../../response/statuscodes.js";
+import statusCode from "../../response/statuscodes.js";
 
 const auth = (req: CustomRequest, res: Response, next: NextFunction) => {
   try {
@@ -12,7 +12,7 @@ const auth = (req: CustomRequest, res: Response, next: NextFunction) => {
     if (!authorizationHeader?.includes("Bearer")) {
       const error = new CustomError(
         messages.tokenInvalid,
-        statuscode.tokenInvalid
+        statusCode.tokenInvalid
       );
 
       throw error;
@@ -30,7 +30,7 @@ const auth = (req: CustomRequest, res: Response, next: NextFunction) => {
   } catch (error: unknown) {
     const invalidTokenError =
       (error as Error).name === "JsonWebTokenError"
-        ? new CustomError(messages.tokenInvalid, statuscode.tokenInvalid)
+        ? new CustomError(messages.tokenInvalid, statusCode.tokenInvalid)
         : error;
 
     next(invalidTokenError);

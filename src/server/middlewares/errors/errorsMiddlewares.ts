@@ -2,7 +2,7 @@ import createDebug from "debug";
 import { type NextFunction, type Request, type Response } from "express";
 import CustomError from "../../CustomError/CustomError.js";
 import messages from "../../response/messages.js";
-import statuscode from "../../response/statuscodes.js";
+import statusCode from "../../response/statuscodes.js";
 
 const debug = createDebug("the-shade-of-it-all-api:server:middlewares:errors");
 
@@ -26,6 +26,6 @@ export const errorNotFound = (
   next: NextFunction
 ) => {
   debug(messages.notFoundMessage);
-  const error = new CustomError(messages.notFoundMessage, statuscode.notFound);
+  const error = new CustomError(messages.notFoundMessage, statusCode.notFound);
   next(error);
 };

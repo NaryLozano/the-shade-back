@@ -1,8 +1,8 @@
 import { type Request, type Response, type NextFunction } from "express";
 import CustomError from "../../CustomError/CustomError.js";
 import { errorNotFound, generalError } from "./errorsMiddlewares.js";
-import statuscode from "../../response/statuscodes.js";
 import messages from "../../response/messages.js";
+import statusCode from "../../response/statuscodes.js";
 
 type CustomResponse = Pick<Response, "status" | "json">;
 
@@ -13,7 +13,7 @@ describe("Given a generalError middleware", () => {
   describe("When its called with an unknow error", () => {
     test("Then it should call the response's status method with 500 and json method with 'Internal Server Error'", () => {
       const error = new Error(messages.internalServerErrorMessage);
-      const statusCode = statuscode.internalServerError;
+      const expectedStatusCode = statusCode.internalServerError;
       const { message } = error;
 
       const response: CustomResponse = {
@@ -30,7 +30,7 @@ describe("Given a generalError middleware", () => {
         next as NextFunction
       );
 
-      expect(response.status).toHaveBeenCalledWith(statusCode);
+      expect(response.status).toHaveBeenCalledWith(expectedStatusCode);
       expect(response.json).toHaveBeenCalledWith({ message });
     });
   });
@@ -45,7 +45,7 @@ describe("Given a errorNotFound middleware", () => {
 
       const expectedError = new CustomError(
         messages.notFoundMessage,
-        statuscode.notFound
+        statusCode.notFound
       );
 
       errorNotFound(req as Request, res as Response, next as NextFunction);
