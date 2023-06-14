@@ -21,6 +21,7 @@ export const getQueens = async (
 
     if (filter) {
       const queens = await Queen.find({ [filter]: filterValue })
+        .sort({ _id: -1 })
         .skip(skip)
         .limit(limit)
         .exec();
@@ -32,7 +33,11 @@ export const getQueens = async (
 
       res.status(statusCode.ok).json({ queens, total });
     } else {
-      const queens = await Queen.find().skip(skip).limit(limit).exec();
+      const queens = await Queen.find()
+        .sort({ _id: -1 })
+        .skip(skip)
+        .limit(limit)
+        .exec();
       const total = await Queen.where({}).countDocuments();
 
       res.status(statusCode.ok).json({ queens, total });

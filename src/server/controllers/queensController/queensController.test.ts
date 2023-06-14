@@ -38,10 +38,12 @@ const next = jest.fn();
 describe("Given a getQueens middleware", () => {
   describe("When it receives a request", () => {
     Queen.find = jest.fn().mockReturnValue({
-      skip: jest.fn().mockReturnValue({
-        limit: jest
-          .fn()
-          .mockReturnValue({ exec: jest.fn().mockResolvedValue(queensMock) }),
+      sort: jest.fn().mockReturnValue({
+        skip: jest.fn().mockReturnValue({
+          limit: jest
+            .fn()
+            .mockReturnValue({ exec: jest.fn().mockResolvedValue(queensMock) }),
+        }),
       }),
     });
 
@@ -75,10 +77,15 @@ describe("Given a getQueens middleware", () => {
   describe("When it receives a request and it is rejected", () => {
     test("Then it should call next function with the error ", async () => {
       const error = new Error(messages.conflictMessage);
+
       Queen.find = jest.fn().mockReturnValue({
-        skip: jest.fn().mockReturnThis(),
-        limit: jest.fn().mockReturnThis(),
-        exec: jest.fn().mockRejectedValue(error),
+        sort: jest.fn().mockReturnValue({
+          skip: jest.fn().mockReturnValue({
+            limit: jest.fn().mockReturnValue({
+              exec: jest.fn().mockRejectedValue(error),
+            }),
+          }),
+        }),
       });
 
       await getQueens(
