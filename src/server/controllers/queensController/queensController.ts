@@ -38,7 +38,7 @@ export const getQueens = async (
         .skip(skip)
         .limit(limit)
         .exec();
-      const total = await Queen.where({}).countDocuments();
+      const total = Queen.where({}).countDocuments().exec();
 
       res.status(statusCode.ok).json({ queens, total });
     }
